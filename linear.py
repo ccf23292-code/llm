@@ -1,5 +1,4 @@
 import numpy as np
-from torch.optim import lr_scheduler
 
 # 1. 造数据（这步不是重点，按你 torch 版翻译过来，直接给你）
 np.random.seed(0)
@@ -22,6 +21,7 @@ for epoch in range(epochs):
     w -= dw * lr
     b -= db * lr
     # d. 每 100 轮打印一次 loss
-    pass
-
+    loss = np.mean((y_pred - y) ** 2)
+    if(epoch+1) % 100 == 0:
+        print(f"Epoch [{epoch+1}/{epochs}], loss = {loss:.4f}")
 print(f"学出来的 w: {w:.4f}, b: {b:.4f}")
