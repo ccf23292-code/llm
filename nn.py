@@ -27,7 +27,7 @@ for epoch in range(epochs):
 
     # ===== 反向：套"万能配方"，求 6 个量 =====
     #   d2  = ?      输出层误差信号
-    d2 = y_pred - Y
+    d2 = y_pred - Y 
     #   dW2, db2 = ?
     dW2 = (1/m) * A1.T @ d2
     db2 = (1/m) * np.sum(d2, axis = 0, keepdims=True)
