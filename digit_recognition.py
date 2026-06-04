@@ -43,3 +43,6 @@ pred_test = np.argmax(softmax(X_test @ W + b), axis = 1)
 true_test = np.argmax(y_test, axis = 1)
 accuracy_test = (pred_test == true_test).mean()
 print(f"{accuracy_test = }")
+
+np.save('digit_recognition_W',W)
+np.save('digit_recognition_b',b)
