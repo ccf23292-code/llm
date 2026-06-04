@@ -6,7 +6,7 @@ data = load_breast_cancer()
 X, y = data.data, data.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 30, random_state=0)
 
-poly = PolynomialFeatures(degree = 2, include_bias = False)
+poly = PolynomialFeatures(degree = 2, include_bias = False) # 升维，也就是都变成两次，axis = 1 扩大
 X_train = poly.fit_transform(X_train)
 X_test = poly.transform(X_test)
 
