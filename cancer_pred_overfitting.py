@@ -6,9 +6,10 @@ data = load_breast_cancer()
 X, y = data.data, data.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 30, random_state=0)
 
+# PolynomialFeatures 是用来将输入的特征X升维，使得训练数量和W数量相近，这样会导致过拟合
 poly = PolynomialFeatures(degree = 2, include_bias = False) # 升维，也就是都变成两次，axis = 1 扩大
-X_train = poly.fit_transform(X_train)
-X_test = poly.transform(X_test)
+X_train = poly.fit_transform(X_train) # fit的目的是确定升维后的特征矩阵的结构，也就是确定特征矩阵的形状，也就是确定特征矩阵的列数
+X_test = poly.transform(X_test) # 这里不用fit，因为X_test的特征矩阵的结构已经确定了
 
 mean = X_train.mean(axis = 0)
 std = X_train.std(axis = 0)
@@ -32,7 +33,7 @@ def sigmoid(z):
 for epoch in range(epochs):
     z = X_train @ W + b
     y_pred = sigmoid(z)
-    dW = (1/m) * X_train.T @ (y_pred - y_train) + Lambda/m * W
+    dW = (1/m) * X_train.T @ (y_pred - y_train) + Lambda/m * W # 正则化是为了防止过拟合，防止W过大，防止W过小
     db = (1/m) * np.sum(y_pred - y_train,axis = 0, keepdims = True)
     W -= lr * dW
     b -= lr * db

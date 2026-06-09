@@ -20,17 +20,17 @@ lr = 0.5
 epochs = 5000
 
 def softmax(Z):   # z的shape是（m,10）
-    Z = Z - Z.max(axis = 1, keepdims = True)
+    Z = Z - Z.max(axis = 1, keepdims = True) # 防止指数爆炸
     return np.exp(Z) / np.sum(np.exp(Z), axis = 1, keepdims = True)
 for epoch in range (epochs):
-    Z = X_train @ W + b
+    Z = X_train @ W + b 
     y_pred = softmax(Z)
     dW = (1/m) * X_train.T @ (y_pred - y_train)
     db = (1/m) * np.sum(y_pred - y_train, axis = 0, keepdims = True)
     W -= lr * dW
     b -= lr * db
     y_pred = np.clip(y_pred, 1e-7, 1-1e-7)
-    loss = -np.mean(np.sum(y_train * np.log(y_pred), axis=1))
+    loss = -np.mean(np.sum(y_train * np.log(y_pred), axis=1)) 
     if ((epoch+1) % 500 == 0 ):
         print(f"Epochs: [{epoch+1}/{epochs}] , loss: {loss:.4f}")
 
